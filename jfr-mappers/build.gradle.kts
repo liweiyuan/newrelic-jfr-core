@@ -4,6 +4,13 @@ java {
     disableAutoTargetJvm()
 }
 
+plugins {
+    id("org.beryx.jlink") version("2.21.2")
+    id( "org.ysb33r.java.modulehelper") version("0.9.0")
+//    id("com.github.johnrengelman.shadow") version "5.2.0"
+}
+
+
 tasks {
     val taskScope = this
     val jar: Jar by taskScope
@@ -12,6 +19,20 @@ tasks {
         manifest.attributes["Implementation-Vendor"] = "New Relic, Inc"
     }
 }
+
+extraJavaModules {
+//    module("slf4j-api-1.7.30.jar","org.slf4j","1.7.30") {
+//        exports("org.slf4j")
+//        exports("org.slf4j.event")
+//    }
+//    module("gson-2.8.0.jar","com.google.code.gson","2.8.0") {
+//        exports("com.google.gson")
+//    }
+    module("telemetry-all-0.8.0-SNAPSHOT.jar", "com.newrelic.telemetry", "0.8.0-SNAPSHOT") {
+        exports("com.newrelic.telemetry")
+    }
+}
+
 
 publishing {
     publications {

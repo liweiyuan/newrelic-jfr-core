@@ -1,11 +1,22 @@
 private object Versions {
-    const val slf4j = "1.7.26"
+    const val slf4j = "1.7.30"
     const val gson = "2.8.6"
     const val log4j = "2.13.3"
+    const val newRelicTelemetry = "0.8.0-SNAPSHOT"
 }
 
 plugins {
+    id("org.beryx.jlink") version("2.21.2")
+    id( "org.ysb33r.java.modulehelper") version("0.9.0")
     id("com.github.johnrengelman.shadow") version "5.2.0"
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs("src/main/java/")
+        }
+    }
 }
 
 java {
@@ -14,11 +25,26 @@ java {
     disableAutoTargetJvm()
 }
 
+extraJavaModules {
+    module("slf4j-api-1.7.30.jar","org.slf4j","1.7.30") {
+        exports("org.slf4j")
+        exports("org.slf4j.event")
+    }
+    module("gson-2.8.0.jar","com.google.code.gson","2.8.0") {
+        exports("com.google.gson")
+    }
+    module("telemetry-all-0.8.0-SNAPSHOT.jar", "com.newrelic.telemetry", "0.8.0-SNAPSHOT") {
+        exports("com.newrelic.telemetry")
+    }
+}
+
+
 dependencies {
     api(project(":jfr-mappers"))
     api("org.slf4j:slf4j-api:${Versions.slf4j}")
     api("org.apache.logging.log4j:log4j-slf4j-impl:${Versions.log4j}")
     api("org.apache.logging.log4j:log4j-core:${Versions.log4j}")
+    implementation("com.newrelic.telemetry:telemetry-all:${Versions.newRelicTelemetry}")
     implementation("com.google.code.gson:gson:${Versions.gson}")
 }
 
