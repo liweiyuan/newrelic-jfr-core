@@ -1,5 +1,9 @@
 [![Community Plus header](https://github.com/newrelic/opensource-website/raw/master/src/images/categories/Community_Plus.png)](https://opensource.newrelic.com/oss-category/#community-plus)
 
+# Required JDK
+
+THis can be built with JDK11, but if packaging is required then JDK14 must be used. The class files will still be JDK11-compatible.
+
 # JFR Core
 
 ![build badge](https://github.com/newrelic/newrelic-jfr-core/workflows/main%20build/badge.svg)
