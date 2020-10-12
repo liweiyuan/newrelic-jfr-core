@@ -6,6 +6,8 @@ val slf4jVersion: String by project
 
 plugins {
     id("org.beryx.jlink")
+    id("com.newrelic.jfr.package")
+    id("nebula.ospackage")
 }
 
 java {
